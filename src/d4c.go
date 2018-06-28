@@ -14,14 +14,13 @@ import (
 
 func main() {
 	var (
-		excludeFlag  string
-		_excludeFlag []string
+		excludeFlag string
 	)
 
 	flag.StringVar(&excludeFlag, "exclude", "", "exclude flag")
 	flag.Parse()
 
-	_excludeFlag = []string{}
+	_excludeFlag := []string{}
 	if excludeFlag != "" {
 		_excludeFlag = strings.Split(excludeFlag, ",")
 	}
