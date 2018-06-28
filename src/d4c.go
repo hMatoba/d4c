@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -41,7 +42,6 @@ func main() {
 	for _, image := range images {
 		tags := image.RepoTags
 		for _, dockerImage := range tags {
-			fmt.Println(dockerImage)
 			tag := strings.Split(dockerImage, ":")
 			_tag := tag[1]
 			isExcluded := contains(_excludeFlag, _tag)
@@ -53,11 +53,13 @@ func main() {
 				}
 				defer out.Close()
 				io.Copy(os.Stdout, out)
-			} else {
-				fmt.Printf("Passed pulling image: %s\n", tag)
+				fmt.Printf("Pulled: %s\n", tag)
 			}
 		}
 	}
+
+	fmt.Println("Push enter key to finish...")
+	bufio.NewScanner(os.Stdin).Scan()
 
 	os.Exit(0)
 }
